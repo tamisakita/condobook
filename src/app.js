@@ -14,14 +14,24 @@ class App {
         this.mongoConnection = new MongoConnection(process.env.MONGODB_URI);
 
         this.connectToDatabase();
+        this.activateAppMiddlewares();
         this.activateAppRoutes();
     }
+
     connectToDatabase() {
         this.mongoConnection.startDbConnection();
     }
+
+    activateAppMiddlewares() {
+        this.app.use(bodyParser.json());
+        this.app.use(cors({
+            origin: process.env.FRONT_END_URL,
+        }));
+    }
+
     activateAppRoutes() {
         this.app.use('/api', apiRoutes);
-      }
+    }
 }
 
 export default new App().app;
