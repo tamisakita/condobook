@@ -6,7 +6,6 @@ import residentsRoutes from './residentsRoutes/residents.routes';
 import roomRoutes from './roomRoutes/room.routes';
 import dashboardRoutes from './dashboardRoutes/dashboard.routes';
 
-
 const router = Router();
 
 // router.use('/auth', authRoutes);
