@@ -1,8 +1,8 @@
-import Residents from '../models/Residents';
+import ResidentEntity from '../models/Residents';
 
 class ResidentsRepository {
   constructor() {
-    this.Residents = Residents;
+    this.Residents = ResidentEntity.Residents;
   }
 
   async findUser(email) {
