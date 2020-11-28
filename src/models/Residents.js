@@ -16,6 +16,9 @@ const residentSchema = new Schema(
     },
     apartment: {
       type: String, required: true, min: 5, max: 10,
+    },
+    role: {
+      type: String, required: true
     }
   },
   {

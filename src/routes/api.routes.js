@@ -6,18 +6,21 @@ import residentsRoutes from './residentsRoutes/residents.routes';
 import roomRoutes from './roomRoutes/room.routes';
 import dashboardRoutes from './dashboardRoutes/dashboard.routes';
 
+import authProtectedRoute from '../middlewares/authProtectedRoute';
 
 const router = Router();
 
-// router.use('/auth', authRoutes);
+/* router.use('/auth', authRoutes);
 
-// router.use('/dashboard',dashboardRoutes);
+router.use('/dashboard',dashboardRoutes); */
 
-// router.use('/booking', bookingsRoutes);
+/* router.use(authProtectedRoute.privateRouteMiddleware); */
+
+router.use('/booking', bookingsRoutes);
 
 router.use('/residents',residentsRoutes);
 
-// router.use('/room',roomRoutes);
+/* router.use('/room',roomRoutes); */
 
 export default router;
 

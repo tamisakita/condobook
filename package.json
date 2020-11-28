@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "npm-run-all deleteOldBuild build server",
-    "dev": "nodemon --exec babel-node src/app.js",
+    "dev": "nodemon --exec babel-node src/server.js",
     "deleteOldBuild": "rm -rf build",
     "build": "babel src --out-dir build --copy-files",
-    "server": "node build/app.js",
+    "server": "node build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

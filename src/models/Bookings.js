@@ -1,7 +1,5 @@
 import { Schema, model } from 'mongoose';
 
-import ApplicationError from '../errors/ApplicationError';
-
 const bookingsSchema = new Schema(
     {
         room: String,
@@ -14,12 +12,5 @@ const bookingsSchema = new Schema(
     },
 
 );
-bookingsSchema.statics.validateUpdateParams = (req, res, next) => {
-    if (req.body.title) {
-      return next();
-    }
   
-    throw new ApplicationError({ message: 'error in this booking schema', status: 401 });
-  };
-  
-  export default model('Bookings', bookingstSchema);
+  export default model('Bookings', bookingsSchema);
