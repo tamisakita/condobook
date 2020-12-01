@@ -1,22 +1,12 @@
 import { Router } from 'express';
 
+import ResidentEntity from '../../../models/Residents'
 import residentsService from '../../../services/residents.service';
-
 import ApplicantionError from '../../../errors/ApplicationError';
-import ApplicationError from '../../../errors/ApplicationError';
 
 const router = Router();
 
-//validação 
-const validateBodyRequest = (req, res, next) => {
-  if (!req.body.email) {
-    throw new ApplicationError({ message: 'email required', status: 400 })
-  }
-
-  next();
-};
-
-router.post('/register', validateBodyRequest, async (req, res, next) => {
+router.post('/register', ResidentEntity.validateRegisterParams , async (req, res, next) => {
   try {
     const { body } = req;
 
