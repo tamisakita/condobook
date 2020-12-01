@@ -9,6 +9,10 @@ class PasswordUtils {
   encrypt(plainTextPassword) {
     return this.bcrypt.hashSync(plainTextPassword, this.saltRounds);
   }
+
+  verify(plainTextPassword, encryptedPassword) {
+    return this.bcrypt.compareSync(plainTextPassword, encryptedPassword);
+  }
 }
 
 export default new PasswordUtils();
