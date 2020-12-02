@@ -19,6 +19,24 @@ class ResidentsRepository {
   
       await newResident.save();
   }
+
+  async get() {
+    const residents = await this.Residents.find();
+
+    return residents;
+  }
+
+  async getOne() {
+
+  }
+
+  async updateOne(id) {
+
+  }
+
+  async deleteOne() {
+
+  }
 }
 
 export default new ResidentsRepository();
