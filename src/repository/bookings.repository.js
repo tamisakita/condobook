@@ -43,18 +43,18 @@ async get() {
 
 //Update: updating information of bookings on the db
 async updateOne(updateObject, id) {
-  const updatedBookings = await this.Bookings.findByIdAndUpdate(
+  const updatedBooking = await this.Bookings.findByIdAndUpdate(
     id,
     updateObject,
     { new: true, useFindAndModify: false },
   );
 
-  return updatedBookings;
+  return updatedBooking;
 }
 
 //Delete: deleting bookings from de db
 async deleteOne(id) {
-  await this.Project.findByIdAndDelete(id);
+  await this.Bookings.findByIdAndDelete(id);
 } 
 
 }
