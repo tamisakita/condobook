@@ -19,9 +19,25 @@ class BookingsService {
       }
 
 //criar um novo booking      
-    async create(newProject, id) {
-        await this.projectRepository.create(newProject, id);
-      }   
+    async create(newBooking, id) {
+        await this.bookingsRepository.create(newBooking, id);
+  }   
+
+
+//update um booking
+async updateOne(updateObject, id) {
+  try {
+    const updatedBooking = await this.BookingsRepository.updateOne(updateObject, id);
+
+    return updatedBooking;
+  } catch (error) {
+    throw new ApplicationError({ message: error.message, status: 504 });
+  }
 }
 
+//deletar um booking
+async deleteOne(id) {
+  await this.BookingsRepository.deleteOne(id);
+}
+}
 export default new BookingsService(BookingsRepository);

@@ -1,7 +1,5 @@
 import { Router } from 'express';
 
-/* import Bookings from '../../../models/Bookings'; */
-
 import BookingsService from '../../../services/bookings.service';
 
 import ApplicationError from '../../../errors/ApplicationError';
@@ -36,5 +34,32 @@ router.post('/createbooking', async (req, res, next) => {
   });
 
 //route to update booking - linking with bookingsService
+router.put('/update/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const updateObject  = req.body;
+
+    const updatedBooking = await BookingsService.updateOne(updateObject, id);
+
+    return res.status(200).json(updatedBooking);
+  } catch (error) {
+    return next(new ApplicationError(error));
+  }
+});
+
+
+//route to delete a booking - linking with bookingService
+router.delete('/delete/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await BookingsService.deleteOne(id);
+
+    return res.status(200).json();
+  } catch (error) {
+    return next(new ApplicationError(error));
+  }
+});
 
 export default router;
