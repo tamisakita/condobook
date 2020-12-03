@@ -18,7 +18,7 @@ router.use('/booking', bookingsRoutes);
 
 router.use('/residents',residentsRoutes);
 
-router.use('/room',roomRoutes);
+router.use('/rooms',roomRoutes);
 
 export default router;
 

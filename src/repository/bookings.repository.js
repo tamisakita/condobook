@@ -26,6 +26,7 @@ async get() {
 //Create: saving the information from new booking on the db
     async create(newBooking, id) {
     try {
+      
       const booking = new this.Bookings({ ...newBooking, owner: id });
 
       await booking.save();
