@@ -2,9 +2,10 @@ import { Schema, model } from 'mongoose';
 
 const roomsSchema = new Schema (
     {
-        Name: String,
-        Capacity: Number,
-        Description: String,
+        name: String,
+        capacity: Number,
+        description: String,
+        bookings: [{ type:Schema.Types.ObjectId, ref: 'Bookings'}],
     },
     {
         timestamp:true,
