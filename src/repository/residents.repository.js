@@ -20,23 +20,27 @@ class ResidentsRepository {
       await newResident.save();
   }
 
-  async get() {
-    const residents = await this.Residents.find();
+  async get(search) {
+    const regex = new RegExp(search, 'i')
 
+    const residents = await this.Residents.find({ apartment: regex });
+    // console.log(residents)
     return residents;
   }
 
-  async getOne() {
+  async updateOne(residentId, data) {
+    const updatedResident = await this.Residents.findByIdAndUpdate(
+      residentId,
+      data,
+      { new: true, useFindAndModify: false },
+    );
 
+    return updatedResident;
   }
 
-  async updateOne(id) {
-
-  }
-
-  async deleteOne() {
-
-  }
+  async deleteOne(id) {
+    await this.Residents.findByIdAndDelete(id);
+  } 
 }
 
 export default new ResidentsRepository();

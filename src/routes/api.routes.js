@@ -10,7 +10,7 @@ const router = Router();
 
 router.use('/auth', authRoutes);
 
-// router.use('/dashboard',dashboardRoutes);
+router.use('/dashboard',dashboardRoutes);
 
 //router.use(authProtectedRoute.privateRouteMiddleware);
 

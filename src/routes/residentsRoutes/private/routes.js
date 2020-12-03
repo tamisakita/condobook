@@ -1,9 +1,10 @@
 import { Router } from 'express';
 
-import ResidentEntity from '../../../models/Residents'
+import ResidentEntity from '../../../models/Residents';
+import residentMapper from '../../../mappers/residents.mapper';
+
 import residentsService from '../../../services/residents.service';
 import ApplicantionError from '../../../errors/ApplicationError';
-import Residents from '../../../models/Residents';
 
 const router = Router();
 
@@ -21,7 +22,11 @@ router.post('/register', ResidentEntity.validateRegisterParams , async (req, res
 
 router.get('/list', async (req, res, next) => {
   try {
-    const residents = residentsService.get();
+    const { search } = req.query;
+
+    const mappedSearch = search.trim();
+
+    const residents = await residentsService.get(mappedSearch);
 
     return res.status(200).json(residents);
   } catch (error) {
@@ -29,9 +34,32 @@ router.get('/list', async (req, res, next) => {
   }
 })
 
-//router para editar
+router.put('/update/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
 
-//router para deletar
+    const mappedBody = residentMapper.updateOne(body);
+  
+    const updatedResident = await residentsService.updateOne(id, mappedBody);
+
+    return res.status(200).json(updatedResident);
+  } catch (error) {
+    return next(new ApplicantionError(error))
+  }
+})
+
+router.delete('/delete/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await residentsService.deleteOne(id);
+
+    return res.status(200).json({ message: 'Resident deleted' });
+  } catch (error) {
+    return next(new ApplicantionError(error))
+  }
+})
 
 export default router;
 

@@ -30,22 +30,20 @@ class ResidentsService {
     console.log('Morador não encontrado, email válido');
   }
 
-  async get() {
-    const residents = await this.residentRepository.get()
+  async get(search) {
+    const residents = await this.residentRepo.get(search)
 
     return residents;
   }
 
-  async getOne(id) {
+  async updateOne(residentId, data) {
+    const residents = await this.residentRepo.updateOne(residentId, data);
 
+    return residents;
   }
 
-  async updateOne(id) {
-
-  }
-
-  async deleteOne() {
-
+  async deleteOne(id) {
+    await this.residentRepo.deleteOne(id);
   }
 }
 
