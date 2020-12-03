@@ -10,11 +10,18 @@ const router = Router();
 
 router.post('/register', ResidentEntity.validateRegisterParams , async (req, res, next) => {
   try {
-    const { body } = req;
+    const role = req.user.role;
 
-    await residentsService.register(body);
+    if (role === "sindico") {
+      const { body } = req;
 
-    return res.status(201).json({ message: 'Resident created' });
+      await residentsService.register(body);
+  
+      return res.status(201).json({ message: 'Resident created' });
+    } else {
+      return res.status(403).json({ message: 'access denied' })
+    }
+    
   } catch (error) {
     return next(new ApplicantionError(error));
   }
