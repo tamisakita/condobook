@@ -22,12 +22,12 @@ router.get('/bookingslist', async(req, res, next) =>{
  //route to create new booking - linking with bookingsService
 router.post('/createbooking', async (req, res, next) => {
     try {
-      const { id } = req.user;
+      //const { id } = req.user;
       const newBooking = req.body;
   
-      await BookingsService.create(newBooking, id);
+      await BookingsService.create(newBooking);
   
-      return res.status(201).json();
+      return res.status(201).json({ message: 'Booking created' });
     } catch (error) {
       return next(new ApplicationError(error));
     }

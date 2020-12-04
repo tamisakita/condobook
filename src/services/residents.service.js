@@ -10,11 +10,13 @@ class ResidentsService {
 
   async register(body) {
     try {
+    
       await this.verifyExistentUser(body);
 
       const newResident = { ...body, password: passwordUtils.encrypt(body.password) };
 
       await this.residentRepo.saveUser(newResident);
+      
     } catch (error) {
       throw new ApplicationError(error);
     }
@@ -42,8 +44,8 @@ class ResidentsService {
     return residents;
   }
 
-  async deleteOne(id) {
-    await this.residentRepo.deleteOne(id);
+  async deleteOne(id) { 
+        await this.residentRepo.deleteOne(id);
   }
 }
 
