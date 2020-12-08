@@ -29,13 +29,18 @@ router.post('/register', ResidentEntity.validateRegisterParams , async (req, res
 
 router.get('/list', async (req, res, next) => {
   try {
-    const { search } = req.query;
+    const role = req.user.role
+      if (role === "síndico") {
+      const { search } = req.query;
 
-    const mappedSearch = search.trim();
+      const mappedSearch = search.trim();
 
-    const residents = await residentsService.get(mappedSearch);
+      const residents = await residentsService.get(mappedSearch);
 
-    return res.status(200).json(residents);
+      return res.status(200).json(residents);
+      }else{
+        return res.status(403).json({message:"Access Denied"});
+      }
   } catch (error) {
     return next(new ApplicantionError(error))
   }
@@ -43,14 +48,19 @@ router.get('/list', async (req, res, next) => {
 
 router.put('/update/:id', async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const { body } = req;
+    const role = req.user.role
+      if (role === "síndico") {
+        const { id } = req.params;
+        const { body } = req;
 
-    const mappedBody = residentMapper.updateOne(body);
+        const mappedBody = residentMapper.updateOne(body);
   
-    const updatedResident = await residentsService.updateOne(id, mappedBody);
+        const updatedResident = await residentsService.updateOne(id, mappedBody);
 
-    return res.status(200).json(updatedResident);
+        return res.status(200).json(updatedResident);
+      }else{
+        return res.status(403).json({message:"Access Denied"});
+      }
   } catch (error) {
     return next(new ApplicantionError(error))
   }
@@ -58,11 +68,16 @@ router.put('/update/:id', async (req, res, next) => {
 
 router.delete('/delete/:id', async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const role = req.user.role
+      if (role === "síndico") {
+        const { id } = req.params;
 
-    await residentsService.deleteOne(id);
+        await residentsService.deleteOne(id);
 
-    return res.status(200).json({ message: 'Resident deleted' });
+        return res.status(200).json({ message: 'Resident deleted' });
+      }else{
+        return res.status(403).json({message:"Access Denied"});
+      }
   } catch (error) {
     return next(new ApplicantionError(error))
   }

@@ -2,9 +2,12 @@ import BookingsRepository from '../repository/bookings.repository';
 
 import ApplicationError from '../errors/ApplicationError';
 
+import RoomsRepository from '../repository/rooms.repository';
+
 class BookingsService {
-    constructor(bookingsRepo) {
+    constructor(bookingsRepo,roomsRepo) {
         this.BookingsRepository = bookingsRepo;
+        this.RoomsRepository = roomsRepo;
     }
 
 //listar os bookings do dia de hoje
@@ -19,8 +22,26 @@ class BookingsService {
       }
 
 //criar um novo booking      
-    async create(newBooking, id) {
-        await this.bookingsRepository.create(newBooking, id);
+    async create(newBooking,id) {
+      const allBookings = await this.BookingsRepository.get();
+      const numberOfBookings = allBookings.filter(function(booking){
+        if (booking.bookingstart === newBooking.bookingstart && booking.room === newBooking.room) {
+          return true;
+        } else {
+          return false;
+        }
+      }).length;
+
+      const allRooms = await this.RoomsRepository.get();
+      const nbRoom = allRooms.filter((room)=> {
+        return room.name.includes(newBooking.room)
+      });
+
+      if (numberOfBookings < nbRoom[0].capacity) { 
+        await this.BookingsRepository.create(newBooking,id);
+      } else{
+        throw new ApplicationError({ message: error.message, status: 504 });
+      }  
   }   
 
 
@@ -40,4 +61,4 @@ async deleteOne(id) {
   await this.BookingsRepository.deleteOne(id);
 }
 }
-export default new BookingsService(BookingsRepository);
+export default new BookingsService(BookingsRepository, RoomsRepository);
