@@ -8,16 +8,31 @@ class BookingsRepository {
     }
 
 
-//List all the bookings from the date of acesss + 7 days
+//List all the bookings from the date of acesss + 7 days per user
 
-async get() {
+async get(id) {
   try {
     
     const today = new Date();
 
-    const bookingslist = await this.Bookings.find({bookingstart: { $gt: today }});
+    const bookingslistPerUser = await this.Bookings.find({owner: id,bookingstart: { $gt: today }});
 
-    return bookingslist;
+    return bookingslistPerUser;
+  } catch (error) {
+    throw new ApplicationError();
+  }
+}
+
+//List all the bookings from the date of acesss + 7 days per user
+
+async get(roomName) {
+  try {
+    
+    const today = new Date();
+
+    const bookingslistPerRoom = await this.Bookings.find({room:roomName,bookingstart: { $gt: today }});
+
+    return bookingslistPerRoom;
   } catch (error) {
     throw new ApplicationError();
   }

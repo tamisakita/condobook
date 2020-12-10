@@ -6,13 +6,29 @@ import ApplicationError from '../../../errors/ApplicationError';
 
 const router = Router();
 
-//route to list the bookings done "today"
-router.get('/bookingslist', async(req, res, next) =>{
+//route to list the bookings done "today" per user
+router.get('/bookingslist/:id', async(req, res, next) =>{
   try {
 
-    const bookingsList = await BookingsService.get();
+    const { id } = req.params;
 
-    return res.status(200).json(bookingsList);
+    const bookingsListPerUser = await BookingsService.get(id);
+
+    return res.status(200).json(bookingsListPerUser);
+
+  } catch (error) {
+    return next(new ApplicationError(error));
+  }
+});
+
+//route to list the bookings done "today" per room
+router.get('/bookingslist/:id', async(req, res, next) =>{
+  try {
+    const { roomName } = req.params;
+
+    const bookingsListPerRoom = await BookingsService.get(roomName);
+
+    return res.status(200).json(bookingsListPerRoom);
 
   } catch (error) {
     return next(new ApplicationError(error));
