@@ -17,21 +17,23 @@ class RoomsRepository{
           throw new ApplicationError();
         }
       }
-      async create(newRoomInfo) {
-        try {
-          const room = new this.Rooms({ ...newRoomInfo});
+      
+
+    async create(newRoomInfo) {
+      try {
+        const room = new this.Rooms({ ...newRoomInfo});
     
           await room.save();
-        } catch (error) {
-          throw new ApplicationError(
-            {
-              message: 'Error while performing an database operation',
-              type: 'ProjectRepository - create method',
-              status: 409,
-            },
-          );
-        }
+      } catch (error) {
+        throw new ApplicationError(
+          {
+            message: 'Error while performing an database operation',
+            type: 'ProjectRepository - create method',
+            status: 409,
+          },
+        );
       }
+    }
     async deleteOne(id) {
         await this.Rooms.findByIdAndDelete(id);
       }

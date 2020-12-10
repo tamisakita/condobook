@@ -10,6 +10,7 @@ const residentSchema = new Schema(
     phone: { type: String, min: 11, max: 11 },
     apartment: { type: String, required: true, min: 5, max: 10 },
     role: { type: String },
+    bookings:[{ type:Schema.Types.ObjectId, ref: 'Bookings'}],
   },
   {
     timestamps: true,

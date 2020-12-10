@@ -10,16 +10,27 @@ class BookingsService {
         this.RoomsRepository = roomsRepo;
     }
 
-//listar os bookings do dia de hoje
-    async get() {
+//listar os bookings do dia de hoje per user
+    async get(id) {
         try {
-          const bookingsFromDb = await this.BookingsRepository.get();
+          const bookingsFromDbPerUser = await this.BookingsRepository.get(id);
     
-          return bookingsFromDb;
+          return bookingsFromDbPerUser;
         } catch (error) {
           throw new ApplicationError({ message: error.message, type: 'Bookings - Get Method', status: 502 });
         }
       }
+
+//listar os bookings do dia de hoje per room
+    async get(roomName) {
+      try {
+        const bookingsFromDbPerRoom = await this.BookingsRepository.get(roomName);
+
+        return bookingsFromDbPerRoom;
+      } catch (error) {
+        throw new ApplicationError({ message: error.message, type: 'Bookings - Get Method', status: 502 });
+    } 
+  }
 
 //criar um novo booking      
     async create(newBooking,id) {
