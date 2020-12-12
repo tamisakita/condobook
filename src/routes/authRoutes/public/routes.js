@@ -12,7 +12,7 @@ router.post('/login', ResidentEntity.validateLoginParams, async (req, res, next)
 
     const loggedToken = await authService.authenticateResident(body);
 
-    return res.status(200).json({ token: loggedToken });
+    return res.status(200).json(loggedToken);
   } catch (error) {
     return next(new ApplicationError(error));
   }

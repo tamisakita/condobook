@@ -9,7 +9,7 @@ const residentSchema = new Schema(
     password: { type: String, required: true, min: 5, max: 50 },
     phone: { type: String, min: 11, max: 11 },
     apartment: { type: String, required: true, min: 5, max: 10 },
-    role: { type: String },
+    role: { type: String, default: 'resident', enum: [ 'resident', 'sindico'] },
     bookings:[{ type:Schema.Types.ObjectId, ref: 'Bookings'}],
   },
   {
@@ -39,7 +39,7 @@ class ResidentEntity {
       email: this.email,
       apartment: this.apartment,
       phone: this.phone,
-    }).options({  abortEarly: false });
+    }).options({  abortEarly: false, allowUnknown: true });
     
     const joiValidation = registerResidentSchema.validate(req.body);
 
@@ -49,7 +49,7 @@ class ResidentEntity {
 
         return acc;
       }, {});
-
+      console.log(errorObject)
       throw new ApplicationError({ message: errorObject, type: 'Register-Validation-Error', status: 400 });
     }
 

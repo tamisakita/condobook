@@ -19,7 +19,7 @@ class AuthProtectedRoute {
       throw new ApplicationError({ message: 'Token expired', type: 'Auth-Token-Expired', status: 401 });
     }
 
-    req.user = { id: decodedToken.id };
+    req.user = { id: decodedToken.id, role: decodedToken.role };
 
     return next();
   }

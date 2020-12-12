@@ -9,18 +9,20 @@ import ApplicantionError from '../../../errors/ApplicationError';
 const router = Router();
 
 router.post('/register', ResidentEntity.validateRegisterParams , async (req, res, next) => {
-  try {
-    const role = req.user.role;
+  console.log(req.user)
 
-    if (role === "sindico") {
+  try {
+    // const role = req.user.role;
+
+    // if (role === "sindico") {
       const { body } = req;
 
       await residentsService.register(body);
   
       return res.status(201).json({ message: 'Resident created' });
-    } else {
-      return res.status(403).json({ message: 'access denied' })
-    }
+    // } else {
+    //   return res.status(403).json({ message: 'access denied' })
+    // }
     
   } catch (error) {
     return next(new ApplicantionError(error));
