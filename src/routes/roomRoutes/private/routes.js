@@ -21,7 +21,7 @@ router.get('/list', async (req, res, next) => {
 router.post('/create', async (req, res, next) => {
     try {
       const role = req.user.role
-      if (role === "síndico") {
+      if (role === "sindico") {
         const newRoomInfo = req.body;
   
         await RoomsService.create(newRoomInfo);
@@ -39,7 +39,7 @@ router.post('/create', async (req, res, next) => {
 router.put('/update/:id',async (req, res, next) => {
     try {
       const role = req.user.role
-      if (role === "síndico") {
+      if (role === "sindico") {
         const { id } = req.params;
         const updateObject = req.body;
   
@@ -58,7 +58,7 @@ router.put('/update/:id',async (req, res, next) => {
 router.delete('/delete/:id', async (req, res, next) => {
     try {
       const role = req.user.role
-      if (role === "síndico") {
+      if (role === "sindico") {
         const { id } = req.params;
   
         await RoomsService.deleteOne(id);

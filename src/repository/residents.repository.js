@@ -20,10 +20,15 @@ class ResidentsRepository {
       await newResident.save();
   }
 
-  async get(search) {
-    const regex = new RegExp(search, 'i')
+  // async get(search) {
+  //   const regex = new RegExp(search, 'i')
 
-    const residents = await this.Residents.find({ apartment: regex });
+  //   const residents = await this.Residents.find({ apartment: regex });
+  //   // console.log(residents)
+  //   return residents;
+  // }
+  async get() {
+    const residents = await this.Residents.find();
     // console.log(residents)
     return residents;
   }

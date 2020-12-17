@@ -12,17 +12,17 @@ router.post('/register', ResidentEntity.validateRegisterParams , async (req, res
   console.log(req.user)
 
   try {
-    // const role = req.user.role;
+    const role = req.user.role;
 
-    // if (role === "sindico") {
+    if (role === "sindico") {
       const { body } = req;
 
       await residentsService.register(body);
   
       return res.status(201).json({ message: 'Resident created' });
-    // } else {
-    //   return res.status(403).json({ message: 'access denied' })
-    // }
+    } else {
+      return res.status(403).json({ message: 'access denied' })
+    }
     
   } catch (error) {
     return next(new ApplicantionError(error));
@@ -32,12 +32,14 @@ router.post('/register', ResidentEntity.validateRegisterParams , async (req, res
 router.get('/list', async (req, res, next) => {
   try {
     const role = req.user.role
-      if (role === "síndico") {
-      const { search } = req.query;
+      if (role === "sindico") {
+      // const { search } = req.query;
+      // const { id } = req.user;
+      // const { search } = req.query;
 
-      const mappedSearch = search.trim();
+      // const mappedSearch = search.trim();
 
-      const residents = await residentsService.get(mappedSearch);
+      const residents = await residentsService.get();
 
       return res.status(200).json(residents);
       }else{
@@ -51,7 +53,7 @@ router.get('/list', async (req, res, next) => {
 router.put('/update/:id', async (req, res, next) => {
   try {
     const role = req.user.role
-      if (role === "síndico") {
+      if (role === "sindico") {
         const { id } = req.params;
         const { body } = req;
 
@@ -71,7 +73,8 @@ router.put('/update/:id', async (req, res, next) => {
 router.delete('/delete/:id', async (req, res, next) => {
   try {
     const role = req.user.role
-      if (role === "síndico") {
+    console.log(req.user)
+      if (role === "sindico") {
         const { id } = req.params;
 
         await residentsService.deleteOne(id);

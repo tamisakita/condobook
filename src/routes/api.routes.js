@@ -11,7 +11,7 @@ const router = Router();
 
 router.use('/auth', authRoutes);
 
-// router.use(authProtectedRoute.privateRouteMiddleware);
+router.use(authProtectedRoute.privateRouteMiddleware);
 
 router.use('/booking', bookingsRoutes);
 

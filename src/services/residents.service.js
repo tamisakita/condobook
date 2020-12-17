@@ -32,8 +32,14 @@ class ResidentsService {
     console.log('Morador não encontrado, email válido');
   }
 
-  async get(search) {
-    const residents = await this.residentRepo.get(search)
+  // async get(search) {
+  //   const residents = await this.residentRepo.get(search)
+
+  //   return residents;
+  // }
+
+  async get() {
+    const residents = await this.residentRepo.get()
 
     return residents;
   }
