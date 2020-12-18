@@ -1,5 +1,8 @@
 import bcrypt from 'bcrypt';
 
+// const bcrypt = require('bcrypt');
+
+
 class PasswordUtils {
   constructor() {
     this.bcrypt = bcrypt;
@@ -14,5 +17,7 @@ class PasswordUtils {
     return this.bcrypt.compareSync(plainTextPassword, encryptedPassword);
   }
 }
+
+// module.exports = new PasswordUtils();
 
 export default new PasswordUtils();

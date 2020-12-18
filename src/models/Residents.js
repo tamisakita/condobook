@@ -2,6 +2,10 @@ import { Schema, model } from 'mongoose';
 import joi from 'joi';
 import ApplicationError from '../errors/ApplicationError';
 
+// const { Schema, model } = require('mongoose');
+// const joi = require('joi');
+// const ApplicationError = require('../errors/ApplicationError');
+
 const residentSchema = new Schema(
   {
     fullName: { type: String, required: true, min: 5, max: 100 },
@@ -78,4 +82,5 @@ class ResidentEntity {
   }
 }
 
+// module.exports = new ResidentEntity();
 export default new ResidentEntity();
