@@ -7,7 +7,7 @@
     "start": "npm-run-all deleteOldBuild build server",
     "dev": "nodemon --exec babel-node src/server.js",
     "deleteOldBuild": "rm -rf build",
-    "build": "babel src --out-dir build --copy-files",
+    "build": "babel src --out-dir build --copy-files --unhandled-rejections=strict",
     "server": "node build/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
