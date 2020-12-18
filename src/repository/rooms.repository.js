@@ -21,8 +21,8 @@ class RoomsRepository{
 
     async create(newRoomInfo) {
       try {
-        const room = new this.Rooms({ ...newRoomInfo});
-    
+        const room = new this.Rooms(newRoomInfo);
+        console.log(room);
           await room.save();
       } catch (error) {
         throw new ApplicationError(
