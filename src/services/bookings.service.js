@@ -22,7 +22,7 @@ class BookingsService {
       }
 
 //listar os bookings do dia de hoje per room
-    async get(roomName) {
+   /*  async get(roomName) {
       try {
         const bookingsFromDbPerRoom = await this.BookingsRepository.get(roomName);
 
@@ -30,7 +30,7 @@ class BookingsService {
       } catch (error) {
         throw new ApplicationError({ message: error.message, type: 'Bookings - Get Method', status: 502 });
     } 
-  }
+  } */
 
 //criar um novo booking      
     async create(newBooking,id) {
@@ -51,7 +51,7 @@ class BookingsService {
       if (numberOfBookings < nbRoom[0].capacity) { 
         await this.BookingsRepository.create(newBooking,id);
       } else{
-        throw new ApplicationError({ message: error.message, status: 504 });
+        throw new ApplicationError({ message: "capacidade ultrapassada", status: 504 });
       }  
   }   
 
