@@ -14,9 +14,10 @@ async get(id) {
   try {
     
     const today = new Date();
+    console.log(id)
 
-    const bookingslistPerUser = await this.Bookings.find({owner: id,bookingstart: { $gt: today }});
-
+    const bookingslistPerUser = await this.Bookings.find({owner: id, bookingstart:{$gt:today}});
+    console.log(bookingslistPerUser);
     return bookingslistPerUser;
   } catch (error) {
     throw new ApplicationError();
@@ -25,7 +26,7 @@ async get(id) {
 
 //List all the bookings from the date of acesss + 7 days per user
 
-async get(roomName) {
+/* async get(roomName) {
   try {
     
     const today = new Date();
@@ -36,12 +37,12 @@ async get(roomName) {
   } catch (error) {
     throw new ApplicationError();
   }
-}
+} */
 
 //Create: saving the information from new booking on the db
     async create(newBooking,id) {
     try {
-      
+      console.log(id)
       const booking = new this.Bookings({ ...newBooking, owner: id });
 
       await booking.save();

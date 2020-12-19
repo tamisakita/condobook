@@ -27,7 +27,7 @@ class ResidentsService {
     const token = jwt.sign(
       { id: residentFromDb._id, role: residentFromDb.role },
       process.env.TOKEN_SECRET,
-      { expiresIn: '15m' },
+      { expiresIn: '45m' },
     );
 
     return {token: token, role: residentFromDb.role};

@@ -5,7 +5,7 @@ const bookingsSchema = new Schema(
         room: String,
         bookingstart:Date,
         bookingend: Date,
-        owner: [{ type: Schema.Types.ObjectId, ref: 'Residents' }],
+        owner: { type: Schema.Types.ObjectId, ref: 'Residents' },
     },
     {
         timestamps: true,

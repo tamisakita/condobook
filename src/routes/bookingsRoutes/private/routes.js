@@ -7,10 +7,10 @@ import ApplicationError from '../../../errors/ApplicationError';
 const router = Router();
 
 //route to list the bookings done "today" per user
-router.get('/bookingslist/:id', async(req, res, next) =>{
+router.get('/bookingslist', async(req, res, next) =>{
   try {
 
-    const { id } = req.params;
+    const { id } = req.user;
 
     const bookingsListPerUser = await BookingsService.get(id);
 
@@ -22,7 +22,7 @@ router.get('/bookingslist/:id', async(req, res, next) =>{
 });
 
 //route to list the bookings done "today" per room
-router.get('/bookingslist/:id', async(req, res, next) =>{
+/* router.get('/bookingslist/:id', async(req, res, next) =>{
   try {
     const { roomName } = req.params;
 
@@ -33,15 +33,15 @@ router.get('/bookingslist/:id', async(req, res, next) =>{
   } catch (error) {
     return next(new ApplicationError(error));
   }
-});
+}); */
 
  //route to create new booking - linking with bookingsService
-router.post('/createbooking', async (req, res, next) => {
+router.post('/create', async (req, res, next) => {
     try {
-      //const { id } = req.user;
+      const { id } = req.user;
       const newBooking = req.body;
   
-      await BookingsService.create(newBooking);
+      await BookingsService.create(newBooking,id);
   
       return res.status(201).json({ message: 'Booking created' });
     } catch (error) {
